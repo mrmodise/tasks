@@ -1,4 +1,7 @@
 package com.mrmodise.repository;
 
-public interface TaskRepository {
+import com.mrmodise.domain.Task;
+import org.springframework.data.repository.CrudRepository;
+
+public interface TaskRepository extends CrudRepository<Task, Long> {
 }

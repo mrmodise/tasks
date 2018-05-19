@@ -1,18 +1,17 @@
 export interface ITask {
-  id: number,
-  taskName: string,
-  dueDate: string,
-  isCompleted: boolean
+    id: number,
+    taskName: string,
+    dueDate: string,
+    completed: boolean
 }
 
 export class Task implements ITask {
-  id: number;
-  taskName: string;
-  dueDate: string;
-  isCompleted: boolean;
 
-  constructor() {
-
-  }
+    constructor(public id, public taskName, public dueDate, public completed) {
+        this.id = id;
+        this.taskName = name;
+        this.dueDate = dueDate;
+        this.completed = completed;
+    }
 
 }

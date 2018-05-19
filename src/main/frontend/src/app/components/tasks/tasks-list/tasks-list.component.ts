@@ -1,21 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../../../services/task/task.service';
+import {ITask, Task} from '../../../models/task';
 
 @Component({
-  selector: 'app-tasks-list',
-  templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css']
+    selector: 'app-tasks-list',
+    templateUrl: './tasks-list.component.html',
+    styleUrls: ['./tasks-list.component.css']
 })
 export class TasksListComponent implements OnInit {
 
-  constructor(private taskService: TaskService) { }
+    tasks: Task;
 
-  ngOnInit() {
-    console.log("I am not in task list");
-    this.taskService.getTasks().subscribe(task => {
-      console.log(`These are the tasks ${JSON.stringify(task)}`);
-    });
-  }
+    constructor(private taskService: TaskService) {
+    }
 
+    ngOnInit() {
+        this.taskService.getTasks().subscribe((task: ITask) => {
+            this.tasks = task;
+        });
+    }
 
+    onTaskChange($event, task: ITask) {
+        console.log(`Task changed ${JSON.stringify($event)} and value ${JSON.stringify(task)}`);
+    }
+
+    getDueDateLabel(task: ITask) {
+        console.log(task)
+        return task.completed ? 'label-success': 'label-primary';
+    }
 }

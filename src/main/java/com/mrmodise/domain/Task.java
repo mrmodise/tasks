@@ -17,8 +17,8 @@ public class Task {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String taskName;
     @JsonFormat(pattern = "MM/dd/YYYY")
     private LocalDate dueDate;
-    private boolean completed;
+    private boolean isCompleted;
 }

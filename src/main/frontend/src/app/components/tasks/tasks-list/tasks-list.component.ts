@@ -25,7 +25,6 @@ export class TasksListComponent implements OnInit {
     }
 
     getDueDateLabel(task: ITask) {
-        console.log(task)
         return task.completed ? 'label-success': 'label-primary';
     }
 }

@@ -14,7 +14,6 @@ import {Task} from '../../../models/task';
 export class TasksAddComponent implements OnInit {
 
     taskField: FormControl;
-    taskInfo: string[] = [];
     datePipe = new DatePipe('en-US');
     date: any;
     task: Task;
@@ -29,19 +28,19 @@ export class TasksAddComponent implements OnInit {
     formChanges() {
         this.taskField = new FormControl();
 
-        this.taskField
-            .valueChanges
+        this.taskField.valueChanges
             .debounceTime(600)
             .distinctUntilChanged().subscribe(task => {
             if (task.length === 0) return;
 
-            this.taskInfo.push(task);
+            this.date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy');
 
-            this.date = this.datePipe.transform(Date.now(), 'dd/MM/2018');
+            this.task = new Task(task.taskName, this.date, task.completed);
 
-            this.task = new Task(12, task.taskName, this.date, task.completed);
-
-            console.log(task + ' ' + this.date);
+            this.taskService.saveTask(this.task, false).subscribe(result => {
+                console.log("Successfully saved task");
+                this.taskField.reset();
+            });
         });
     }
 

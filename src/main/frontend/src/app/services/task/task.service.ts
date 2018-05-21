@@ -17,7 +17,7 @@ export class TaskService {
 
     saveTask(task: Task, checked: boolean) {
         task.completed = checked;
-        return this.http.post('/api/tasks/save', task).retry(4);
+        return this.http.post('/api/tasks/save', task).retry(3);
     }
 
    /* private handleError(error: HttpErrorResponse) {

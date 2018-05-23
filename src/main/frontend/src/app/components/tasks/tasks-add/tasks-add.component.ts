@@ -16,7 +16,6 @@ export class TasksAddComponent implements OnInit {
     taskField: FormControl;
     datePipe = new DatePipe('en-US');
     date: any;
-    task: Task;
 
     constructor(private taskService: TaskService) {
     }
@@ -30,15 +29,13 @@ export class TasksAddComponent implements OnInit {
 
         this.taskField.valueChanges
             .debounceTime(600)
-            .distinctUntilChanged().subscribe(task => {
-            if (task.length === 0) return;
+            .distinctUntilChanged().subscribe(t => {
+                if(t === null) return;
 
-            this.date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy');
+            let task = new Task(t, false);
 
-            this.task = new Task(task.taskName, this.date, task.completed);
-
-            this.taskService.saveTask(this.task, false).subscribe(result => {
-                console.log("Successfully saved task");
+            this.taskService.addTask(task).subscribe(result => {
+                console.log(`Successfully saved task ${task}`);
                 this.taskField.reset();
             });
         });

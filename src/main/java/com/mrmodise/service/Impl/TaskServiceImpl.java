@@ -6,6 +6,7 @@ import com.mrmodise.service.TaskService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -26,6 +27,15 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task save(Task task) {
+        return this.taskRepository.save(task);
+    }
+
+    @Override
+    public Task updateTask(Long id, boolean completed) {
+        Optional<Task> byId = this.taskRepository.findById(id);
+        Task task = byId.get();
+        System.out.println(task);
+        task.setCompleted(completed);
         return this.taskRepository.save(task);
     }
 

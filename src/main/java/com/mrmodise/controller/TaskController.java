@@ -5,6 +5,7 @@ import com.mrmodise.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 @RestController
@@ -21,6 +22,13 @@ public class TaskController {
 
     @PostMapping("/save")
     public Task saveTask(@RequestBody Task task) {
+        System.out.println(task.toString() + " ------ ");
+        return this.taskService.updateTask(task.getId(), task.isCompleted());
+    }
+
+    @PostMapping("/add")
+    public Task addTask(@RequestBody Task task) {
+        task.setDueDate(LocalDate.now());
         return this.taskService.save(task);
     }
 

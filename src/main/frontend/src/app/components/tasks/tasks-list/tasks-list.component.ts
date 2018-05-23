@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TaskService} from '../../../services/task/task.service';
 import {ITask, Task} from '../../../models/task';
 import {DatePipe} from '@angular/common';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-tasks-list',
@@ -20,19 +22,14 @@ export class TasksListComponent implements OnInit {
     ngOnInit() {
         this.taskService.getTasks().subscribe((task: ITask) => {
             this.tasks = task;
-        });
+        },error => console.log(error));
     }
 
-    onTaskChange(event, task: ITask) {
-
-        this.date = this.datePipe.transform(task.dueDate, 'yyyy-MM-dd');
-        let newTask = new Task(task.taskName, this.date, task.completed);
-
-        console.log(newTask);
-
-        this.taskService.saveTask(task, event.target.checked).subscribe(data => {
+    onTaskChange(event, taskId: number, completed: boolean) {
+        console.log(taskId + ' ------ ' + completed + ' event ' + JSON.stringify(event));
+        this.taskService.updateTask(taskId, completed).subscribe(data => {
             console.log(`Success ${JSON.stringify(data)}`);
-        });
+        }, error => console.log(error));
     }
 
     getDueDateLabel(task: ITask) {

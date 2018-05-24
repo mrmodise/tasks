@@ -26,14 +26,13 @@ export class TasksListComponent implements OnInit {
             this.tasks = task;
         }, error => this.toaster.error(`Could not load tasks data ${JSON.stringify(error)}`));
 
-        this.taskService.taskChanged.subscribe((task: Task) => {
-
-            console.log(task.taskName + ' ----- ' + task.dueDate)
+        this.taskService.taskChanged.subscribe((updatedTask: Task) => {
+            this.tasks.push(updatedTask);
         });
     }
 
     onTaskChange(event, taskId: number, completed: boolean) {
-        this.taskService.updateTask(taskId, completed).subscribe(data => {
+        this.taskService.updateTask(taskId, completed).subscribe(() => {
             if (completed) {
                 this.toaster.success(`Task with ID ${taskId} has been completed`);
             } else {

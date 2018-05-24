@@ -26,7 +26,7 @@ export class TaskService {
     }
 
     updateTask(taskId: number, completed: boolean) {
-        let task = new Task('', completed, taskId);
+        let task = new Task('', completed, '', taskId);
         return this.http.post<ITask>('/api/tasks/save', task).retry(1);
     }
 

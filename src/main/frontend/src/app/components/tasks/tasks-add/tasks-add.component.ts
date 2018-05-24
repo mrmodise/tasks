@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {DatePipe} from '@angular/common';
 import {TaskService} from '../../../services/task/task.service';
 import {Task} from '../../../models/task';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
@@ -15,8 +14,6 @@ import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 export class TasksAddComponent implements OnInit {
 
     taskField: FormControl;
-    datePipe = new DatePipe('en-US');
-    date: any;
 
     constructor(private taskService: TaskService,
                 public toaster: ToastsManager,
@@ -35,20 +32,20 @@ export class TasksAddComponent implements OnInit {
             .debounceTime(600)
             .distinctUntilChanged().subscribe(t => {
             if (t === null) return;
-            let task = new Task(t, false, this.getTodayDate());
+            let task = new Task(t, false, new Date().getTime());
 
-            this.taskService.addTask(task).subscribe(() => {
+            this.taskService.addTask(task).subscribe((newTask: Task) => {
                 this.toaster.success('Task successfully saved', 'SUCCESS');
                 this.taskField.reset();
-                this.taskService.taskChanged.emit(task);
+                this.taskService.taskChanged.emit(newTask);
             });
         });
     }
 
     getTodayDate() {
         let date = new Date();
-        let mm: any = date.getMonth();
-        let dd: any = date.getDay();
+        let mm: any = date.getMonth() + 1;
+        let dd: any = date.getDate();
         let yr = date.getFullYear();
 
         if (dd < 10) dd = '0' + dd;

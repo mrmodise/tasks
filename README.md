@@ -10,6 +10,22 @@ The two frameworks are built separately, in the case of a team environment, ther
 ``Angular``: To run the front-end application, execute ``$ yarn start``. The application starts on port 4200.
 
 ``Spring Boot``: To run the back-end application, execute execute the TasksApplication class from within Eclipse or IntelliJIDEA.
+
+## Integration
+* Build the Angular project by executing: ``$ yarn build``. This will build the project and copy build artefacts into the dist folder
+* Thereafter, the dist folder will be copied from the front-end to the back-end static folder
+* Execute ``mvn package`` to package the application into a JAR file. Jar file located in ``target/tasks-0.0.1-SNAPSHOT.jar`` folder
+
+Below are yarn script commands that are executed:
+```
+"build": "ng build --prod",
+
+"postbuild": "yarn run deploy",
+
+"predeploy": "rimraf ../resources/static/ & mkdirp ../resources/static",
+
+"deploy": "copyfiles -f dist/** ../resources/static"
+```
  
 ## What's Next?
 * Write Unit tests for both the back-end and front-end to complete the application

@@ -31,12 +31,13 @@ export class TasksListComponent implements OnInit {
         });
     }
 
-    onTaskChange(event, taskId: number, completed: boolean) {
-        this.taskService.updateTask(taskId, completed).subscribe(() => {
+    onTaskChange(task, completed) {
+        task.completed = completed;
+        this.taskService.updateTask(task.id, task.completed).subscribe(() => {
             if (completed) {
-                this.toaster.success(`Task with ID ${taskId} has been completed`);
+                this.toaster.success(`Task with ID ${task.id} has been completed`);
             } else {
-                this.toaster.warning(`Task with ID ${taskId} is not complete`);
+                this.toaster.warning(`Task with ID ${task.id} is not complete`);
             }
         }, error => this.toaster.error(`Could not update tasks data ${JSON.stringify(error)}`));
     }

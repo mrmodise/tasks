@@ -30,11 +30,16 @@ public class TasksApplication {
                     Date.from(LocalDate.now().plus(1, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), false));
 			taskService.save(new Task(3L, "Create service and repository classes",
                     Date.from(LocalDate.now().plus(3, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), true));
-			//taskService.save(new Task(4L, "Create the command line runner to load data", LocalDate.now().plus(5, ChronoUnit.DAYS), false));
-			//taskService.save(new Task(5L, "Create the required configuration properties", LocalDate.now().plus(5, ChronoUnit.DAYS), true));
-			//taskService.save(new Task(6L, "Go to cinema to watch Black Panther", LocalDate.now().plus(5, ChronoUnit.DAYS), true));
-			//taskService.save(new Task(7L, "Bath Botlhale", LocalDate.now().plus(5, ChronoUnit.DAYS), true));
-			//taskService.save(new Task(8L, "Check the H2 instance database", LocalDate.now().plus(5, ChronoUnit.DAYS), false));
+			taskService.save(new Task(4L, "Create the command line runner to load data",
+                    Date.from(LocalDate.now().plus(5, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), false));
+			taskService.save(new Task(5L, "Create the required configuration properties",
+                    Date.from(LocalDate.now().plus(5, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), true));
+			taskService.save(new Task(6L, "Go to cinema to watch Black Panther",
+                    Date.from(LocalDate.now().plus(5, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), true));
+			taskService.save(new Task(7L, "Bath Botlhale",
+                    Date.from(LocalDate.now().plus(5, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), true));
+			taskService.save(new Task(8L, "Check the H2 instance database",
+                    Date.from(LocalDate.now().plus(5, ChronoUnit.DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant()), false));
 		};
 	}
 }

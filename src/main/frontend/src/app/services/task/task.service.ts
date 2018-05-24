@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import {EventEmitter, Injectable, Input} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import 'rxjs/add/operator/retry';
 import {ITask} from '../../models/task';
@@ -16,14 +16,13 @@ export class TaskService {
     private _tasks = new BehaviorSubject<Task[]>([]);
     data$: Observable<Task[]> = this._tasks.asObservable();
 
+    taskChanged = new EventEmitter<Task>();
+
     constructor(private http: HttpClient) {
     }
 
     getTasks() {
-        return Observable.interval(1000)
-            .flatMap(() => {
-                return this.http.get<ITask>('/api/tasks').retry(4);
-            });
+        return this.http.get<Task[]>('/api/tasks').retry(4);
     }
 
     updateTask(taskId: number, completed: boolean) {

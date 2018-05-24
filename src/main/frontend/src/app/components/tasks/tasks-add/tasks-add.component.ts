@@ -25,7 +25,6 @@ export class TasksAddComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.toaster.success('Successfully saved task', 'SUCCESS');
         this.formChanges();
     }
 
@@ -35,15 +34,26 @@ export class TasksAddComponent implements OnInit {
         this.taskField.valueChanges
             .debounceTime(600)
             .distinctUntilChanged().subscribe(t => {
-                if(t === null) return;
+            if (t === null) return;
+            let task = new Task(t, false, this.getTodayDate());
 
-            let task = new Task(t, false);
-
-            this.taskService.addTask(task).subscribe(result => {
-                this.toaster.success('Successfully saved task', 'SUCCESS');
+            this.taskService.addTask(task).subscribe(() => {
+                this.toaster.success('Task successfully saved', 'SUCCESS');
                 this.taskField.reset();
+                this.taskService.taskChanged.emit(task);
             });
         });
+    }
+
+    getTodayDate() {
+        let date = new Date();
+        let mm: any = date.getMonth();
+        let dd: any = date.getDay();
+        let yr = date.getFullYear();
+
+        if (dd < 10) dd = '0' + dd;
+        if(mm < 10) mm = '0' + mm;
+        return mm + '/' + dd + '/' + yr;
     }
 
 }

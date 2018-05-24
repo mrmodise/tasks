@@ -11,7 +11,7 @@ import {ToastsManager} from 'ng2-toastr';
 })
 export class TasksListComponent implements OnInit {
 
-    tasks: Task;
+    tasks: Task[] = [];
     datePipe = new DatePipe('en-US');
     date: string;
 
@@ -22,20 +22,27 @@ export class TasksListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.taskService.getTasks().subscribe((task: ITask) => {
+        this.taskService.getTasks().subscribe((task: Task[]) => {
             this.tasks = task;
-        },error => console.log(error));
+        }, error => this.toaster.error(`Could not load tasks data ${JSON.stringify(error)}`));
+
+        this.taskService.taskChanged.subscribe((task: Task) => {
+
+            console.log(task.taskName + ' ----- ' + task.dueDate)
+        });
     }
 
     onTaskChange(event, taskId: number, completed: boolean) {
-        this.toaster.error('What error', 'error');
-        console.log(taskId + ' ------ ' + completed + ' event ' + JSON.stringify(event));
         this.taskService.updateTask(taskId, completed).subscribe(data => {
-            console.log(`Success ${JSON.stringify(data)}`);
-        }, error => console.log(error));
+            if (completed) {
+                this.toaster.success(`Task with ID ${taskId} has been completed`);
+            } else {
+                this.toaster.warning(`Task with ID ${taskId} is not complete`);
+            }
+        }, error => this.toaster.error(`Could not update tasks data ${JSON.stringify(error)}`));
     }
 
     getDueDateLabel(task: ITask) {
-        return task.completed ? 'label-success': 'label-primary';
+        return task.completed ? 'label-success' : 'label-primary';
     }
 }

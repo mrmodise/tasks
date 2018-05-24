@@ -19,7 +19,7 @@ public class Task {
     @GeneratedValue
     private Long id;
     private String taskName;
-    @JsonFormat(pattern = "MM/dd/YYYY", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "MM/dd/YYYY")
     private Date dueDate;
     private boolean isCompleted;
 }

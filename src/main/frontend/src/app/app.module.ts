@@ -7,6 +7,8 @@ import {TasksAddComponent} from './components/tasks/tasks-add/tasks-add.componen
 import {HttpClientModule} from '@angular/common/http';
 import {TaskService} from './services/task/task.service';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ToastModule} from 'ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        ToastModule.forRoot(),
         HttpClientModule,
         ReactiveFormsModule
     ],

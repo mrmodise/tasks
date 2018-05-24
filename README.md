@@ -12,8 +12,9 @@ The two frameworks are built separately, in the case of a team environment, ther
 ``Spring Boot``: To run the back-end application, execute execute the TasksApplication class from within Eclipse or IntelliJIDEA.
  
 ## What's Next?
-* Write few Unit tests to complete the application
+* Write Unit tests for both the back-end and front-end to complete the application
 * Move the application to JHipster
+* Write UI automated tests using Cypress
 
 ## License
 ```

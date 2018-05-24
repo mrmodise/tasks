@@ -4,8 +4,6 @@ import com.mrmodise.domain.Task;
 import com.mrmodise.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.stream.Stream;
 
 @RestController

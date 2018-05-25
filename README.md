@@ -7,7 +7,7 @@ The two frameworks are built separately, in the case of a team environment, ther
 ![GIF demo](gifs/tasks-manager.gif)
 
 ## Setup
-``Angular``: To run the front-end application, execute ``$ yarn start``. The application starts on port 4200.
+``Angular``: To run the front-end application, execute ``$ yarn start``. The application starts on port 4200 with a proxy to the backend on port 8080.
 
 ``Spring Boot``: To run the back-end application, execute execute the TasksApplication class from within Eclipse or IntelliJIDEA.
 
